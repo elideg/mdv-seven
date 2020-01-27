@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnChanges, SimpleChanges } from '@angular/core';
 import { Project, ProjectService } from '@mdv-seven/core-data';
 import { FormBuilder, FormGroup } from '@angular/forms';
 
@@ -19,6 +19,7 @@ export class ProjectComponent implements OnInit {
   ngOnInit() {
     this.getProjects();
   }
+
 
   selectProject(project: Project) {
     this.selectedProject = project;

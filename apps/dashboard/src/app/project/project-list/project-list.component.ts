@@ -1,5 +1,5 @@
 import { Router } from '@angular/router';
-import { Project } from '@mdv-seven/core-data';
+import { Project, ProjectService } from '@mdv-seven/core-data';
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 
 @Component({
@@ -16,10 +16,13 @@ export class ProjectListComponent implements OnInit {
   @Output() created = new EventEmitter;
 
   constructor(
-    private router: Router
+    private router: Router,
+    private projectsService: ProjectService
   ) { }
 
   ngOnInit() {
+    this.projectsService.all();
+
   }
 
   select(project: Project) {

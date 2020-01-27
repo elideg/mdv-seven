@@ -1,4 +1,4 @@
-import { Project, ProjectService } from '@mdv-seven/core-data';
+import { Project, ProjectService, NotifyService } from '@mdv-seven/core-data';
 import { FormGroup, NgForm, FormBuilder } from '@angular/forms';
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -22,12 +22,14 @@ export class ProjectDetailsComponent implements OnInit {
   }
 
   form: FormGroup;
+  originalTitle;
 
   constructor(
     private route: ActivatedRoute,
     private fb: FormBuilder,
     private router: Router,
-    private projectService: ProjectService
+    private projectService: ProjectService,
+    private notify: NotifyService
   ) { }
 
 
@@ -38,17 +40,17 @@ export class ProjectDetailsComponent implements OnInit {
     this._project.pipe(
       tap((project: Project) => this.form.patchValue(project))
     ).subscribe();
+
+    this.projectService.all();
   }
 
   cancel() {
     this.form.reset();
-    this.router.navigate(['/']);
   }
 
   saveForm(formDirective: NgForm) {
     this.saveProject(formDirective.value)
-    formDirective.resetForm();
-    this.router.navigate(['/']);
+    this.notify.notify('Successfully Saved')
   }
 
   saveProject(project: Project) {
@@ -61,7 +63,8 @@ export class ProjectDetailsComponent implements OnInit {
 
   updateProject(project: Project) {
     this.projectService.update(project).subscribe((r) => {
-      this.cancel();
+      this.projectService.all();
+      this.router.navigate(['/']);
     });
   }
 

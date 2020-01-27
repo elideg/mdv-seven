@@ -1,5 +1,5 @@
 import { Router } from '@angular/router';
-import { ProjectService } from '@mdv-seven/core-data';
+import { ProjectService, NotifyService } from '@mdv-seven/core-data';
 import { Component, OnInit } from '@angular/core';
 import { Project } from '@mdv-seven/core-data';
 import { FormBuilder, FormGroup, NgForm } from '@angular/forms';
@@ -15,7 +15,8 @@ export class ProjectCreateItemComponent implements OnInit {
   constructor(
     private projectService: ProjectService,
     private fb: FormBuilder,
-    private router: Router
+    private router: Router,
+    private notify: NotifyService
   ) { }
 
   ngOnInit() {
@@ -25,6 +26,7 @@ export class ProjectCreateItemComponent implements OnInit {
   createProject(project: Project) {
     this.projectService.create(project).subscribe((r) => {
       this.router.navigate(['/'])
+      this.notify.notify('Successfully Created')
     })
   }
 
