@@ -1,0 +1,17 @@
+<div class="container d-flex mt-3 justify-content-center">
+  <div class="col-8">
+    <mdv-seven-project-list [projects]="projects$ | async"
+                          (selected)="selectProject($event)"
+                          (deleted)="deleteProject($event)">
+    </mdv-seven-project-list>
+  </div>
+
+  <!-- <div class="col-6">
+    <mdv-seven-project-details [project]="selectedProject"
+                              (saved)="saveProject($event)"
+                              (cancelled)="cancel()">
+    </mdv-seven-project-details>
+  </div>
+</div> -->
+
+<!-- <mdv-seven-project-details [selected]="selectedProject"></mdv-seven-project-details> -->

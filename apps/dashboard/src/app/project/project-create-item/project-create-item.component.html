@@ -1,0 +1,32 @@
+<div class="container d-flex mt-3 justify-content-center">
+        <button mat-icon-button [routerLink]="['/']">
+            <mat-icon>arrow_back</mat-icon>
+        </button>
+    <div class="col-6">
+        <mat-card>
+            <mat-card-header>
+                    <h1>Create a New Project</h1>
+            </mat-card-header>
+            <form [formGroup]=form #formDirective="ngForm" (ngSubmit)="saveForm(formDirective)">
+                <mat-card-content>
+
+                    <mat-form-field class="full-width d-flex">
+
+                        <input matInput placeholder="Title" type="text" name="title" formControlName="title">
+                    </mat-form-field>
+
+                    <mat-form-field class="full-width d-flex">
+                        <textarea matInput placeholder="Details" type="text" name="details"
+                            formControlName="details"></textarea>
+                    </mat-form-field>
+
+                </mat-card-content>
+
+                <mat-card-actions>
+                    <button type="submit" mat-button color="primary">Create</button>
+                    <button type="button" mat-button (click)="cancel()">Cancel</button>
+                </mat-card-actions>
+            </form>
+        </mat-card>
+    </div>
+</div>
