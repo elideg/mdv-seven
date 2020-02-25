@@ -6,7 +6,7 @@
   </mat-card-header>
   <mat-card-content>
     <mat-list>
-      <mat-list-item *ngFor="let project of projects" (click)="selected.emit(project.id)" class="mat-list-option" [routerLink]="['project', project.id]">
+      <mat-list-item *ngFor="let project of projects" (click)="selected.emit(project.id)" class="mat-list-option" [routerLink]="[project.id]">
         <h3 mat-line>
           {{project.title}}
         </h3>

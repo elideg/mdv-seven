@@ -1,7 +1,7 @@
 import { NotifyService } from '@mdv-seven/core-data';
+import { Router } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
 
 @Component({
   selector: 'mdv-seven-login',
@@ -9,31 +9,38 @@ import { Router } from '@angular/router';
   styleUrls: ['./login.component.scss']
 })
 export class LoginComponent implements OnInit {
-  logIn: FormGroup
+  userInfo = { email: 'e@e.com', password: 'pass'}
+  form: FormGroup;
 
   constructor(
-    private fb: FormBuilder,
+    private formBuilder: FormBuilder,
     private router: Router,
-    private notify: NotifyService
-    ) { }
+    private notify: NotifyService,
+  ) { }
 
   ngOnInit() {
     this.initForm();
   }
 
-  initForm() {
-    this.logIn = this.fb.group({
-      email: ['', Validators.compose([Validators.required, Validators.email])],
+  login() {
+    const inputedUser = this.form.value
+    this.notify.notify('Invalid User')
+    if (this.form.invalid) {
+      return false;
+    } else {
+      if(inputedUser.email === this.userInfo.email && inputedUser.password === this.userInfo.password) {
+        this.notify.notify('Successfully Logged In')
+        this.router.navigate(['/projects'])
+      }
+    }
+  }
+
+  private initForm() {
+    this.form = this.formBuilder.group({
+      email: ['', Validators.compose([Validators.required])],
       password: ['', Validators.compose([Validators.required])]
     })
   }
 
-  login() {
-    if(this.logIn.invalid) {
-      this.notify.notify('Complete fields with valid information')
-    } else {
-      this.notify.notify('Successfully logged in')
-    this.router.navigate(['/']);
-    }
-  }
+
 }

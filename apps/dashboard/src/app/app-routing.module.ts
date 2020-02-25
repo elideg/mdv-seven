@@ -8,12 +8,12 @@ import { ProjectComponent } from './project/project.component';
 import { WildcardComponent } from './wildcard/wildcard.component';
 
 const routes: Routes = [
-  { path: '', children: [
+  { path: 'projects', children: [
     { path: '', component: ProjectComponent},
-    { path: 'project/:id', component: ProjectDetailsComponent },
+    { path: ':id', component: ProjectDetailsComponent },
   ]},
   { path: 'create', component: ProjectCreateItemComponent },
-  { path: 'login', component: LoginComponent },
+  { path: '', component: LoginComponent },
   { path: '404', component: WildcardComponent },
   { path: '**', redirectTo: '404', pathMatch: 'full' }
 ]
